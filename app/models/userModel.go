@@ -7,10 +7,15 @@ import (
 
 type User struct {
 	gorm.Model
-	Name     string `json:"name"`
-	Username string `json:"username" gorm:"unique"`
-	Email    string `json:"email" gorm:"unique"`
-	Password string `json:"password"`
+	Id       int     `json:"id" gorm:"primaryKey"`
+	Name     string  `json:"name"`
+	Username string  `json:"username" gorm:"unique"`
+	Email    string  `json:"email" gorm:"unique"`
+	Password string  `json:"password"`
+	Avatar   *string `json:"avatar"`
+	RoleId   int     `json:"role_id"`
+	Role     Role    `gorm:"foreignKey:RoleId"`
+	Posts    []Post
 }
 
 func (user *User) HashPassword(password string) error {

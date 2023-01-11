@@ -21,6 +21,11 @@ func Connect(connectionString string) {
 	log.Println("Connected to Database!")
 }
 func Migrate() {
+	Instance.AutoMigrate(&models.Permission{})
+	Instance.AutoMigrate(&models.Role{})
+	Instance.AutoMigrate(&models.RolePermission{})
 	Instance.AutoMigrate(&models.User{})
+	Instance.AutoMigrate(&models.Post{})
+	Instance.AutoMigrate(&models.PostDetail{})
 	log.Println("Database Migration Completed!")
 }

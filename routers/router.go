@@ -9,14 +9,19 @@ import (
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
-	api := router.Group("/api")
+	r := router.Group("/api/v1")
 	{
-		api.POST("/login", controllers.Login)
-		api.POST("/user/register", controllers.RegisterUser)
-		secured := api.Group("/secured").Use(middlewares.Auth())
+		r.POST("/login", controllers.Login)
+		r.POST("/register", controllers.RegisterUser)
+		api := r.Group("/user").Use(middlewares.Auth())
 		{
-			secured.GET("/ping", controllers.Ping)
+			api.GET("/ping", controllers.Ping)
 		}
+		admin := r.Group("/admin").Use(middlewares.Auth())
+		{
+			admin.GET("/roles", controllers.GetRoles)
+		}
+
 	}
 	return router
 }
