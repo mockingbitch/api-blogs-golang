@@ -7,10 +7,11 @@ import (
 )
 
 type Role struct {
-	gorm.Model
 	Id              int    `json:"id" gorm:"primaryKey"`
 	Name            string `json:"name"`
 	RolePermissions []RolePermission
+	CreatedAt       time.Time      `json:"created_at" gorm:"<-:create"`
+	DeletedAt       gorm.DeletedAt `json:"deleted_at"`
 	// Users           []User
 }
 

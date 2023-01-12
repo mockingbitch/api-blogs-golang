@@ -19,6 +19,7 @@ func InitRouter() *gin.Engine {
 		}
 		admin := r.Group("/admin").Use(middlewares.Auth())
 		{
+			admin.GET("/users", controllers.GetUsers)
 			admin.GET("/roles", controllers.GetRoles)
 		}
 
